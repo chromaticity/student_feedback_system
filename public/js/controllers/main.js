@@ -14,9 +14,9 @@ angular.module('feedbackController', [])
 				$scope.loading = false;
 			});
 
-		// CREATE ==================================================================
+		// CREATE THUMBS UP ==================================================================
 		// when submitting the add form, send the text to the node API
-		$scope.createTodo = function() {
+		$scope.createThumbsUp = function() {
 
 			// validate the formData to make sure that something is there
 			// if form is empty, nothing will happen
@@ -24,7 +24,26 @@ angular.module('feedbackController', [])
 				$scope.loading = true;
 
 				// call the create function from our service (returns a promise object)
-				Feedbacks.create($scope.formData)
+				Feedbacks.createTU($scope.formData)
+
+					// if successful creation, call our get function to get all the new feedback
+					.success(function(data) {
+						$scope.loading = false;
+						$scope.formData = {}; // clear the form so our user is ready to enter another
+						$scope.feedback = data; // assign our new list of feedback
+					});
+			}
+		};
+
+		$scope.createThumbsDown = function() {
+
+			// validate the formData to make sure that something is there
+			// if form is empty, nothing will happen
+			if ($scope.formData.text != undefined) {
+				$scope.loading = true;
+
+				// call the create function from our service (returns a promise object)
+				Feedbacks.createTD($scope.formData)
 
 					// if successful creation, call our get function to get all the new feedback
 					.success(function(data) {
@@ -37,7 +56,7 @@ angular.module('feedbackController', [])
 
 		// DELETE ==================================================================
 		// delete a todo after checking it
-		$scope.deleteTodo = function(id) {
+		$scope.deleteThumbsUp = function(id) {
 			$scope.loading = true;
 
 			Feedbacks.delete(id)

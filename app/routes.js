@@ -27,6 +27,7 @@ module.exports = function (app) {
         // create a feedback, information comes from AJAX request from Angular
         Feedbacks.create({
             text: req.body.text,
+            type: "thumbsup",
             done: false
         }, function (err, feedback) {
             if (err)
@@ -43,6 +44,7 @@ module.exports = function (app) {
         // create a feedback, information comes from AJAX request from Angular
         Feedbacks.create({
             text: req.body.text,
+            type: "thumbsdown",
             done: false
         }, function (err, feedback) {
             if (err)
@@ -53,6 +55,7 @@ module.exports = function (app) {
         });
 
     });
+
 
     // delete a feedback
     app.delete('/api/feedback/:feedback_id', function (req, res) {

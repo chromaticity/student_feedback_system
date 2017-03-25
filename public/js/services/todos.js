@@ -7,8 +7,11 @@ angular.module('feedbackService', [])
 			get : function() {
 				return $http.get('/api/feedback');
 			},
-			create : function(thumbsupData) {
+			createTU : function(thumbsupData) {
 				return $http.post('/api/thumbsup', thumbsupData);
+			},
+			createTD : function(thumbsupData) {
+				return $http.post('/api/thumbsdown', thumbsupData);
 			},
 			delete : function(id) {
 				return $http.delete('/api/feedback/' + id);

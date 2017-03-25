@@ -33,18 +33,21 @@
 
 		<!-- HEADER AND TODO COUNT -->
 		<div class="jumbotron text-center">
-			<h1>I'm a Todo-aholic <span class="label label-info">{{ feedback.length }}</span></h1>
+			<h1>Thumbs Up<span class="label label-info">{{ feedback.length }}</span></h1>
+		</div>
+		<div class="jumbotron text-center">
+			<h1>Thumbs Down<span class="label label-info">{{ feedback.length }}</span></h1>
 		</div>
 
 		<!-- TODO LIST -->
 		<div id="todo-list" class="row">
 			<div class="col-sm-4 col-sm-offset-4">
-			
+
 				<!-- LOOP OVER THE TODOS IN $scope.todos -->
 				<!-- not necessary, unless they want to give written feedback which I don't want -->
 				<div class="checkbox" ng-repeat="feedback in feedback">
 					<label>
-						<input type="checkbox" ng-click="deleteTodo(feedback._id)"> {{ feedback.text }}
+						<input type="checkbox" ng-click="deleteThumbsUp(feedback._id)"> {{ feedback.text }}
 					</label>
 				</div>
 
@@ -66,7 +69,7 @@
 					</div>
 
 					<!-- createToDo() WILL CREATE NEW TODOS -->
-					<button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
+					<button type="submit" class="btn btn-primary btn-lg" ng-click="createThumbsUp()">Add</button>
 				</form>
 			</div>
 		</div>
