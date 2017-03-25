@@ -33,10 +33,11 @@
 
 		<!-- HEADER AND TODO COUNT -->
 		<div class="jumbotron text-center">
-			<h1>Thumbs Up<span class="label label-info">{{ feedback.length }}</span></h1>
+		<!-- filter by the amount of thumbs up we've gotten -->
+			<h1>Thumbs Up<span class="label label-info">{{(feedback | filter: {type: 'thumbsup'}).length}}</span></h1>
 		</div>
 		<div class="jumbotron text-center">
-			<h1>Thumbs Down<span class="label label-info">{{ feedback.length }}</span></h1>
+			<h1>Thumbs Down<span class="label label-info">{{(feedback | filter: {type: 'thumbsdown'}).length}}</span></h1>
 		</div>
 
 		<!-- TODO LIST -->
