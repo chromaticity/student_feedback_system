@@ -10,8 +10,8 @@ angular.module('feedbackService', [])
 			createTU : function(thumbsupData) {
 				return $http.post('/api/thumbsup', thumbsupData);
 			},
-			createTD : function(thumbsupData) {
-				return $http.post('/api/thumbsdown', thumbsupData);
+			createTD : function(thumbsdownData) {
+				return $http.post('/api/thumbsdown', thumbsdownData);
 			},
 			delete : function(id) {
 				return $http.delete('/api/feedback/' + id);
