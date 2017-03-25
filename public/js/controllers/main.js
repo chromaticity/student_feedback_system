@@ -20,6 +20,7 @@ angular.module('feedbackController', [])
 
 			// validate the formData to make sure that something is there
 			// if form is empty, nothing will happen
+
 			if ($scope.formData.text != undefined) {
 				$scope.loading = true;
 
