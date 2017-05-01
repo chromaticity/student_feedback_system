@@ -48,6 +48,10 @@ io.on('connection', function (socket) {
     Feedback.count({"type": "thumbsup"}, function(err, c) {
       socket.emit('thumbsup_sent', { thumbsup: c });
     });
+
+    Feedback.count({"type": "speaklouder"}, function(err, c) {
+      socket.emit('speaklouder_sent', { speaklouder: c });
+    });
     
     socket.on('my other event', function (data) {
       console.log(data);

@@ -13,10 +13,9 @@ function getFeedbacks(res) {
     });
 };
 
+// pass in the socket io instance so we can monitor in real time when route is hit
 module.exports = function (app, io) {
-
-    // api ---------------------------------------------------------------------
-    // get all responses
+    // api calls for all specified buttons
     app.get('/api/feedback', function (req, res) {
         // use mongoose to get all todos in the database
         getFeedbacks(res);
@@ -24,7 +23,6 @@ module.exports = function (app, io) {
 
     // create feedback and send back all todos after creation
     app.post('/api/thumbsup', function (req, res) {
-
         // create a feedback, information comes from AJAX request from Angular
         Feedbacks.count({"type": "thumbsup"}, function(err, c) {
             var no_zero = c + 1;
@@ -42,11 +40,9 @@ module.exports = function (app, io) {
             // get and return all the todos after you create another
             getFeedbacks(res);
         });
-
     });
 
     app.post('/api/thumbsdown', function (req, res) {
-
         // create a feedback, also pass the value of the total amount of votes.
         Feedbacks.count({"type": "thumbsdown"}, function(err, c) {
             var no_zero = c + 1;
@@ -60,7 +56,26 @@ module.exports = function (app, io) {
         }, function (err, feedback) {
             if (err)
                 res.send(err);
+            // get and return all the todos after you create another
+            getFeedbacks(res);
+        });
+    });
 
+    // speak louder api route
+    app.post('/api/speaklouder', function (req, res) {
+        // create a feedback, also pass the value of the total amount of votes.
+        Feedbacks.count({"type": "speaklouder"}, function(err, c) {
+            var no_zero = c + 1;
+            io.sockets.emit("speaklouder_sent", { speaklouder: no_zero });
+        });
+
+        Feedbacks.create({
+            text: req.body.text,
+            type: "speaklouder",
+            done: false
+        }, function (err, feedback) {
+            if (err)
+                res.send(err);
             // get and return all the todos after you create another
             getFeedbacks(res);
         });

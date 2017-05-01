@@ -13,6 +13,9 @@ angular.module('feedbackService', [])
 			createTD : function(thumbsdownData) {
 				return $http.post('/api/thumbsdown', thumbsdownData);
 			},
+			createSL : function(speaklouderData) {
+				return $http.post('/api/speaklouder', speaklouderData);
+			},
 			delete : function() {
 				return $http.delete('/api/feedback/');
 			}
