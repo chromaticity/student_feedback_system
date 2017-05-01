@@ -1,4 +1,5 @@
 var Feedbacks = require('./models/feedback');
+var mongoose = require('mongoose');
 
 function getFeedbacks(res) {
     Feedbacks.find(function (err, todos) {
@@ -12,7 +13,7 @@ function getFeedbacks(res) {
     });
 };
 
-module.exports = function (app) {
+module.exports = function (app, io) {
 
     // api ---------------------------------------------------------------------
     // get all responses
@@ -25,6 +26,11 @@ module.exports = function (app) {
     app.post('/api/thumbsup', function (req, res) {
 
         // create a feedback, information comes from AJAX request from Angular
+        Feedbacks.count({"type": "thumbsup"}, function(err, c) {
+            var no_zero = c + 1;
+            io.sockets.emit("thumbsup_sent", { thumbsup: no_zero });
+        });
+
         Feedbacks.create({
             text: req.body.text,
             type: "thumbsup",
@@ -41,7 +47,12 @@ module.exports = function (app) {
 
     app.post('/api/thumbsdown', function (req, res) {
 
-        // create a feedback, information comes from AJAX request from Angular
+        // create a feedback, also pass the value of the total amount of votes.
+        Feedbacks.count({"type": "thumbsdown"}, function(err, c) {
+            var no_zero = c + 1;
+            io.sockets.emit("thumbsdown_sent", { thumbsdown: no_zero });
+        });
+
         Feedbacks.create({
             text: req.body.text,
             type: "thumbsdown",
@@ -53,20 +64,17 @@ module.exports = function (app) {
             // get and return all the todos after you create another
             getFeedbacks(res);
         });
-
     });
 
 
     // delete a feedback
-    app.delete('/api/feedback/:feedback_id', function (req, res) {
-        Feedbacks.remove({
-            _id: req.params.feedback_id
-        }, function (err, feedback) {
-            if (err)
-                res.send(err);
-
-            getFeedbacks(res);
+    app.delete('/api/feedback', function (req, res) {
+        mongoose.connect('mongodb://localhost/studentfeedback',function(){
+             /* Drop the DB, gone forever */
+            mongoose.connection.db.dropDatabase();
         });
+        window.location.reload(false);
+        getFeedbacks(res);
     });
 
     // application -------------------------------------------------------------

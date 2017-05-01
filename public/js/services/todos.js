@@ -13,8 +13,8 @@ angular.module('feedbackService', [])
 			createTD : function(thumbsdownData) {
 				return $http.post('/api/thumbsdown', thumbsdownData);
 			},
-			delete : function(id) {
-				return $http.delete('/api/feedback/' + id);
+			delete : function() {
+				return $http.delete('/api/feedback/');
 			}
 		}
 	}]);

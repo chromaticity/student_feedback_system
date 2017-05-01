@@ -32,8 +32,8 @@ var Feedbacks = require('./app/models/feedback');
 var feedback_schema = mongoose.model("Feedbacks").schema;
 var Feedback = mongoose.model("Feedbacks", feedback_schema);
 
-// routes
-require('./app/routes.js')(app);
+// routes, passing through the socket io instance to it
+require('./app/routes.js')(app, io);
 
 // listen (start app with node server.js)
 app.get('server').listen(port);
@@ -43,6 +43,10 @@ console.log("App listening on port " + port);
 io.on('connection', function (socket) {
     Feedback.count({"type": "thumbsdown"}, function(err, c) {
       socket.emit('thumbsdown_sent', { thumbsdown: c });
+    });
+
+    Feedback.count({"type": "thumbsup"}, function(err, c) {
+      socket.emit('thumbsup_sent', { thumbsup: c });
     });
     
     socket.on('my other event', function (data) {

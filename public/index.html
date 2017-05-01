@@ -34,23 +34,23 @@
 		<!-- HEADER AND TODO COUNT -->
 		<div class="jumbotron text-center">
 		<!-- filter by the amount of thumbs up we've gotten -->
-			<h1>Thumbs Up<span class="label label-info">{{(feedback | filter: {type: 'thumbsup'}).length}}</span></h1>
+			<h1>Thumbs Up<span id="thumbsup" class="label label-info">0</span></h1>
 		</div>
 		<div class="jumbotron text-center">
-			<h1>Thumbs Down<span class="label label-info">{{(feedback | filter: {type: 'thumbsdown'}).length}}</span></h1>
+			<h1>Thumbs Down<span id="thumbsdown" class="label label-info">0</span></h1>
 		</div>
 
 		<!-- TODO LIST -->
 		<div id="todo-list" class="row">
 			<div class="col-sm-4 col-sm-offset-4">
 
-				<!-- LOOP OVER THE TODOS IN $scope.todos -->
 				<!-- not necessary, unless they want to give written feedback which I don't want -->
-				<!-- <div class="checkbox" ng-repeat="feedback in feedback">
-					<label>
+				 <!--<div class="checkbox" ng-repeat="feedback in feedback">-->
+					<!--<label>
 						<input type="checkbox" ng-click="deleteThumbsUp(feedback._id)"> {{ feedback.text }}
-					</label>
-				</div> -->
+					</label>-->
+					<button type="button" ng-click="deleteThumbsUp(1)" class="btn btn-primary">Delete All Feedback</button>
+				<!--</div> -->
 
 				<p class="text-center" ng-show="loading">
 					<span class="fa fa-spinner fa-spin fa-3x"></span>
@@ -64,10 +64,17 @@
 <!--call out the socket io connection and start, remember to type in correct address-->
 <script src="/socket.io/socket.io.js"></script>
 <script>
+	// establish connection
   var socket = io.connect('http://localhost:8080');
-//   performed client side...
+//   retrieve socket calls for thumbs down
   socket.on('thumbsdown_sent', function (data) {
-    console.log(data.thumbsdown);
+	document.getElementById("thumbsdown").innerHTML = data.thumbsdown;
+    socket.emit('my other event', { my: 'data' });
+  });
+
+// retrieve socket calls for thumbs up
+  socket.on('thumbsup_sent', function (data) {
+	document.getElementById("thumbsup").innerHTML = data.thumbsup;
     socket.emit('my other event', { my: 'data' });
   });
 </script>

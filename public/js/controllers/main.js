@@ -56,14 +56,9 @@ angular.module('feedbackController', [])
 		};
 
 		// DELETE ==================================================================
-		$scope.deleteThumbsUp = function(id) {
-			$scope.loading = true;
-
-			Feedbacks.delete(id)
-				// if successful creation, call our get function to get all the new feedback
-				.success(function(data) {
-					$scope.loading = false;
-					$scope.feedback = data; // assign our new list of feedback
-				});
+		$scope.deleteThumbsUp = function() {
+			// call delete function from express js route
+			Feedbacks.delete();
+			window.location.reload(true);
 		};
 	}]);
