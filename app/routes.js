@@ -1,15 +1,17 @@
+// routing system for the entire application. where voting is handled
+// these api routes can be then hooked up to the android app's buttons, and requests will be scanned realtime
+
+// need mongoose and my feedback models
 var Feedbacks = require('./models/feedback');
 var mongoose = require('mongoose');
 
 function getFeedbacks(res) {
-    Feedbacks.find(function (err, todos) {
-
+    Feedbacks.find(function (err, votes) {
         // if there is an error retrieving, send the error. nothing after res.send(err) will execute
         if (err) {
             res.send(err);
         }
-
-        res.json(todos); // return all todos in JSON format
+        res.json(votes);
     });
 };
 
@@ -81,15 +83,34 @@ module.exports = function (app, io) {
         });
     });
 
+    // speak slower api route
+    app.post('/api/speakslower', function (req, res) {
+        // create a feedback, also pass the value of the total amount of votes.
+        Feedbacks.count({"type": "speakslower"}, function(err, c) {
+            var no_zero = c + 1;
+            io.sockets.emit("speakslower_sent", { speakslower: no_zero });
+        });
+
+        Feedbacks.create({
+            text: req.body.text,
+            type: "speakslower",
+            done: false
+        }, function (err, feedback) {
+            if (err)
+                res.send(err);
+            // get and return all the todos after you create another
+            getFeedbacks(res);
+        });
+    });
+
 
     // delete a feedback
     app.delete('/api/feedback', function (req, res) {
         mongoose.connect('mongodb://localhost/studentfeedback',function(){
-             /* Drop the DB, gone forever */
+             /* Drop the DB, gone forever. 
+                A new one will be created shortly after, but empty. */
             mongoose.connection.db.dropDatabase();
         });
-        window.location.reload(false);
-        getFeedbacks(res);
     });
 
     // application -------------------------------------------------------------

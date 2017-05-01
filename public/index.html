@@ -84,6 +84,13 @@
 	document.getElementById("speak_louder").innerHTML = data.speaklouder;
     socket.emit('my other event', { status: 'Speak Louder counter initiated.' });
   });
+
+ // retrieve socket calls for speaklouder
+  socket.on('speakslower_sent', function (data) {
+	document.getElementById("speak_slower").innerHTML = data.speakslower;
+    socket.emit('my other event', { status: 'Speak Slower counter initiated.' });
+  });
+
 </script>
 
 </html>

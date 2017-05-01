@@ -52,6 +52,10 @@ io.on('connection', function (socket) {
     Feedback.count({"type": "speaklouder"}, function(err, c) {
       socket.emit('speaklouder_sent', { speaklouder: c });
     });
+
+    Feedback.count({"type": "speakslower"}, function(err, c) {
+      socket.emit('speakslower_sent', { speakslower: c });
+    });
     
     socket.on('my other event', function (data) {
       console.log(data);
