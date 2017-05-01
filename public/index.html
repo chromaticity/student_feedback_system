@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 <!-- ASSIGN OUR ANGULAR MODULE -->
 <html ng-app="feedbackSystem">
@@ -46,11 +46,11 @@
 
 				<!-- LOOP OVER THE TODOS IN $scope.todos -->
 				<!-- not necessary, unless they want to give written feedback which I don't want -->
-				<div class="checkbox" ng-repeat="feedback in feedback">
+				<!-- <div class="checkbox" ng-repeat="feedback in feedback">
 					<label>
 						<input type="checkbox" ng-click="deleteThumbsUp(feedback._id)"> {{ feedback.text }}
 					</label>
-				</div>
+				</div> -->
 
 				<p class="text-center" ng-show="loading">
 					<span class="fa fa-spinner fa-spin fa-3x"></span>
@@ -60,4 +60,16 @@
 		</div>
 
 </body>
+
+<!--call out the socket io connection and start, remember to type in correct address-->
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io.connect('http://localhost:8080');
+//   performed client side...
+  socket.on('thumbsdown_sent', function (data) {
+    console.log(data.thumbsdown);
+    socket.emit('my other event', { my: 'data' });
+  });
+</script>
+
 </html>

@@ -27,6 +27,10 @@ app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.json({type: 'application/vnd.api+json'})); // parse application/vnd.api+json as json
 app.use(methodOverride('X-HTTP-Method-Override'));
 
+// mongoose stuff
+var Feedbacks = require('./app/models/feedback');
+var feedback_schema = mongoose.model("Feedbacks").schema;
+var Feedback = mongoose.model("Feedbacks", feedback_schema);
 
 // routes
 require('./app/routes.js')(app);
@@ -34,3 +38,14 @@ require('./app/routes.js')(app);
 // listen (start app with node server.js)
 app.get('server').listen(port);
 console.log("App listening on port " + port);
+
+// on connection of the actual client... 
+io.on('connection', function (socket) {
+    Feedback.count({"type": "thumbsdown"}, function(err, c) {
+      socket.emit('thumbsdown_sent', { thumbsdown: c });
+    });
+    
+    socket.on('my other event', function (data) {
+      console.log(data);
+    });
+});

@@ -1,6 +1,9 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var socketio = require('socket.io');
 
-module.exports = mongoose.model('Feedbacks', {
+// schema of our data goes here
+var feedbackSchema = new Schema({
     text: {
         type: String,
         default: ''
@@ -10,3 +13,6 @@ module.exports = mongoose.model('Feedbacks', {
     	default: ''
     }
 });
+
+// model creation with your schema
+module.exports = mongoose.model('Feedbacks', feedbackSchema);

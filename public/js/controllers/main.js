@@ -56,7 +56,6 @@ angular.module('feedbackController', [])
 		};
 
 		// DELETE ==================================================================
-		// delete a todo after checking it
 		$scope.deleteThumbsUp = function(id) {
 			$scope.loading = true;
 
