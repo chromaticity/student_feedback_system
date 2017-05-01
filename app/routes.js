@@ -103,6 +103,26 @@ module.exports = function (app, io) {
         });
     });
 
+    // speak faster api route
+    app.post('/api/speakfaster', function (req, res) {
+        // create a feedback, also pass the value of the total amount of votes.
+        Feedbacks.count({"type": "speakfaster"}, function(err, c) {
+            var no_zero = c + 1;
+            io.sockets.emit("speakfaster_sent", { speakfaster: no_zero });
+        });
+
+        Feedbacks.create({
+            text: req.body.text,
+            type: "speakfaster",
+            done: false
+        }, function (err, feedback) {
+            if (err)
+                res.send(err);
+            // get and return all the todos after you create another
+            getFeedbacks(res);
+        });
+    });
+
 
     // delete a feedback
     app.delete('/api/feedback', function (req, res) {

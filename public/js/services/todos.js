@@ -19,6 +19,9 @@ angular.module('feedbackService', [])
 			createSS : function(speakslowerData) {
 				return $http.post('/api/speakslower', speakslowerData);
 			},
+			createSF : function(speakfaster) {
+				return $http.post('/api/speakfaster', speakfaster);
+			},
 			delete : function() {
 				return $http.delete('/api/feedback/');
 			}

@@ -85,10 +85,16 @@
     socket.emit('my other event', { status: 'Speak Louder counter initiated.' });
   });
 
- // retrieve socket calls for speaklouder
+ // retrieve socket calls for speak slower
   socket.on('speakslower_sent', function (data) {
 	document.getElementById("speak_slower").innerHTML = data.speakslower;
     socket.emit('my other event', { status: 'Speak Slower counter initiated.' });
+  });
+  
+  // retrieve socket calls for speakfaster
+  socket.on('speakfaster_sent', function (data) {
+	document.getElementById("speak_faster").innerHTML = data.speakfaster;
+    socket.emit('my other event', { status: 'Speak Faster counter initiated.' });
   });
 
 </script>
