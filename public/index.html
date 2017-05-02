@@ -23,30 +23,28 @@
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
 
 	<script src="js/controllers/main.js"></script> <!-- load up our controller -->
-	<script src="js/services/todos.js"></script> <!-- load our todo service -->
-	<script src="js/core.js"></script> <!-- load our main application -->
+	<script src="js/services/feedback_services.js"></script> <!-- load our todo service -->
+	<script src="js/core.js"></script>
+	<script src="js/chart.js/dist/Chart.min.js"></script> 
 
 </head>
 <!-- SET THE CONTROLLER -->
 <body ng-controller="mainController">
 	<div class="container">
-
 		<!--thumbs up, thumbs down, speak louder, speak slower, speak faster-->
-		<div class="jumbotron text-center">
+		<div class="text-center">
 		<!-- filter by the amount of thumbs up we've gotten -->
-			<h1>Thumbs Up<span id="thumbsup" class="label label-info">0</span></h1>
-		</div>
-		<div class="jumbotron text-center">
-			<h1>Thumbs Down<span id="thumbsdown" class="label label-info">0</span></h1>
-		</div>
-		<div class="jumbotron text-center">
-			<h1>Speak Louder<span id="speak_louder" class="label label-info">0</span></h1>
+			<!--<h1>Thumbs Up<span id="thumbsup" class="label label-info">0</span></h1>-->
+			<canvas id="thumbs" width="400" height="100"></canvas>
 		</div>
 		<div class="jumbotron text-center">
 			<h1>Speak Slower<span id="speak_slower" class="label label-info">0</span></h1>
 		</div>
 		<div class="jumbotron text-center">
 			<h1>Speak Faster<span id="speak_faster" class="label label-info">0</span></h1>
+		</div>
+		<div class="jumbotron text-center">
+			<h1>Speak Louder<span id="speak_louder" class="label label-info">0</span></h1>
 		</div>
 
 		<!-- delete the button -->
@@ -62,7 +60,6 @@
 
 <!--other javascript declared here.-->
 <script src="/socket.io/socket.io.js"></script>
-<script src="js/sockets.js"></script>
-<script src="js/chart.js/dist/Chart.min.js"></script>
+<script src="js/data-and-sockets.js"></script>
 
 </html>
