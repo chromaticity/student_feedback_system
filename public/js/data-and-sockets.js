@@ -43,8 +43,10 @@ var socket = io.connect('http://localhost:8080');
 
 
 /* All of the graphs go here.*/
-var ctx = document.getElementById("thumbs");
-var thumbs_chart = new Chart(ctx, {
+
+// thumbs up and thumbs down chart
+var thumbs_ctx = document.getElementById("thumbs");
+var thumbs_chart = new Chart(thumbs_ctx, {
     type: 'bar',
     data: {
         labels: ["Thumbs Up", "Thumbs Down"],
@@ -52,12 +54,12 @@ var thumbs_chart = new Chart(ctx, {
             label: '# of Votes',
             data: [0, 0],
             backgroundColor: [
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 99, 132, 0.2)',
+                'rgba(0, 222, 44, 0.4)',
+                'rgba(222, 15, 0, 0.4)',
             ],
             borderColor: [
-                'rgba(54, 162, 235, 1)',
-                'rgba(255,99,132,1)',
+                'rgba(0, 154, 10, 1)',
+                'rgba(195,15,15,1)',
             ],
             borderWidth: 1
         }]
