@@ -18,26 +18,27 @@ var socket = io.connect('http://localhost:8080');
   socket.on('thumbsup_sent', function (data) {
     thumbs_chart.data.datasets[0].data[0] = data.thumbsup;
     thumbs_chart.update();
-    thumbsup = data.thumbsup;
     socket.emit('my other event', { status: 'Thumbs Up counter initiated.' });
   });
 
-  // retrieve socket calls for speaklouder
-  socket.on('speaklouder_sent', function (data) {
-	document.getElementById("speak_louder").innerHTML = data.speaklouder;
-    socket.emit('my other event', { status: 'Speak Louder counter initiated.' });
-  });
-
- // retrieve socket calls for speak slower
+  // retrieve socket calls for speak slower
   socket.on('speakslower_sent', function (data) {
-	document.getElementById("speak_slower").innerHTML = data.speakslower;
+    speech_chart.data.datasets[0].data[0] = data.speakslower;
+    speech_chart.update();
     socket.emit('my other event', { status: 'Speak Slower counter initiated.' });
   });
   
   // retrieve socket calls for speakfaster
   socket.on('speakfaster_sent', function (data) {
-	document.getElementById("speak_faster").innerHTML = data.speakfaster;
+    speech_chart.data.datasets[0].data[1] = data.speakfaster;
+    speech_chart.update();
     socket.emit('my other event', { status: 'Speak Faster counter initiated.' });
+  });
+
+  // retrieve socket calls for speaklouder - bar doesnt make sense so we'll try flash messages
+  socket.on('speaklouder_sent', function (data) {
+	document.getElementById("speak_louder").innerHTML = data.speaklouder;
+    socket.emit('my other event', { status: 'Speak Louder counter initiated.' });
   });
 
 
@@ -59,6 +60,37 @@ var thumbs_chart = new Chart(thumbs_ctx, {
             ],
             borderColor: [
                 'rgba(0, 154, 10, 1)',
+                'rgba(195,15,15,1)',
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+
+// bar chart for speaking fast or slow
+var speech_ctx = document.getElementById("speech");
+var speech_chart = new Chart(speech_ctx, {
+    type: 'bar',
+    data: {
+        labels: ["Speak Slower", "Speak Faster"],
+        datasets: [{
+            label: '# of Votes',
+            data: [0, 0],
+            backgroundColor: [
+                'rgba(1, 10, 255, 0.4)',
+                'rgba(222, 15, 0, 0.4)',
+            ],
+            borderColor: [
+                'rgba(1, 10, 255, 1)',
                 'rgba(195,15,15,1)',
             ],
             borderWidth: 1
