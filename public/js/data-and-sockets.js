@@ -37,10 +37,9 @@ var socket = io.connect('http://localhost:8080');
 
   // retrieve socket calls for speaklouder - bar doesnt make sense so we'll try flash messages
   socket.on('speaklouder_sent', function (data) {
-	document.getElementById("speak_louder").innerHTML = data.speaklouder;
+	// document.getElementById("speak_louder").innerHTML = data.speaklouder;
     socket.emit('my other event', { status: 'Speak Louder counter initiated.' });
   });
-
 
 
 /* All of the graphs go here.*/

@@ -1,54 +1,46 @@
 <!DOCTYPE html>
 
-<!-- ASSIGN OUR ANGULAR MODULE -->
+<!-- angular module declared here -->
 <html ng-app="feedbackSystem">
 <head>
 	<!-- META -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
 
-	<title>Realtime Student Feedback Sys</title>
+	<title>Student Feedback</title>
 
-	<!-- SCROLLS -->
-	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+	<!-- styles, also bootstrap 3 complained the least lol -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/animate.css/animate.min.css">
 	<style>
-		html 					{ overflow-y:scroll; }
-		body 					{ padding-top:50px; }
-		#todo-list 				{ margin-bottom:30px; }
-		#todo-form 	 			{ margin-bottom:50px; }
+		html { overflow-y:scroll; }
+		body { padding-top:5px; }
+		#del-button { margin-bottom:30px; }
 	</style>
-
-	<!-- SPELLS -->
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
-
-	<script src="js/controllers/main.js"></script> <!-- load up our controller -->
-	<script src="js/services/feedback_services.js"></script> <!-- load our todo service -->
-	<script src="js/core.js"></script>
-	<script src="js/chart.js/dist/Chart.min.js"></script> 
 
 </head>
 <!-- SET THE CONTROLLER -->
 <body ng-controller="mainController">
 	<div class="container">
-		<!--thumbs up, thumbs down, speak louder, speak slower, speak faster-->
+		<!--views for all sections-->
 		<div class="text-center">
 			<h2>Quality of Lecture</h2>
-			<canvas id="thumbs" width="400" height="100"></canvas>
+			<canvas id="thumbs" width="450" height="100"></canvas>
 		</div>
 		<div class=" text-center">
 			<!--<h1>Speak Slower<span id="speak_slower" class="label label-info">0</span></h1>-->
 			<h2>Speed of Lecture</h2>
-			<canvas id="speech" width="400" height="100"></canvas>
+			<canvas id="speech" width="450" height="100"></canvas>
 		</div>
-		<div class="jumbotron text-center">
+		<!--<div class="jumbotron text-center">
 			<h1>Speak Louder<span id="speak_louder" class="label label-info">0</span></h1>
-		</div>
+		</div>-->
 
-		<!-- delete the button -->
-		<div id="todo-list" class="row">
-			<div class="col-sm-4 col-sm-offset-4">
-				<button type="button" ng-click="deleteAllFeedback()" class="btn btn-primary">Delete All Feedback</button>
+		<!-- button to reset all feedback  -->
+		<div id="del-button" class="row">
+			<div class="text-center">
+				<button type="button" ng-click="deleteAllFeedback()" class="btn btn-primary">Reset All Feedback</button>
 				<p class="text-center" ng-show="loading">
 					<span class="fa fa-spinner fa-spin fa-3x"></span>
 				</p>
@@ -56,7 +48,17 @@
 		</div>
 </body>
 
-<!--other javascript declared here.-->
+<!-- javascript crap -->
+<!-- load angular -->
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+<!-- load up our controller -->
+<script src="js/controllers/main.js"></script>
+<!-- load our feedback service -->
+<script src="js/services/feedback_services.js"></script>
+<!-- more angular core stuff -->
+<script src="js/core.js"></script>
+<!-- socket io and chart.js stuff -->
+<script src="js/chart.js/dist/Chart.min.js"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="js/data-and-sockets.js"></script>
 
