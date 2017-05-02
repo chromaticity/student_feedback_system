@@ -1,9 +1,9 @@
 {
-  "name": "node-todo",
+  "name": "student-feedback-system",
   "version": "0.0.1",
-  "description": "Simple todo application.",
+  "description": "Student feedback system for COMP 485, this is the web facing component.",
   "main": "server.js",
-  "author": "Scotch",
+  "author": "Brandon Antillon",
   "dependencies": {
     "body-parser": "^1.4.3",
     "express": "^4.13.4",

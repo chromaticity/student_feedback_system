@@ -1,4 +1,4 @@
-// set up
+// set up dependencies, express, socket io, etc.
 var express = require('express');
 var app = express();
 var _http = require('http');
@@ -10,6 +10,7 @@ var io = socketio.listen(server);
 app.set('socketio', io);
 app.set('server', server);
 
+// set up mongoose and the port to use, as well ass mongoose db config
 var mongoose = require('mongoose');
 var port = process.env.PORT || 8080;
 var database = require('./config/database');
@@ -17,7 +18,7 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 
-// configuration 
+// connect mongoose to our db url, with studentfeedback 
 mongoose.connect(database.localUrl); 	
 
 app.use(express.static('./public'));
@@ -39,7 +40,7 @@ require('./app/routes.js')(app, io);
 app.get('server').listen(port);
 console.log("App listening on port " + port);
 
-// on connection of the actual client... 
+// on connection of the actual client... initiate all socket.io counters and sessions 
 io.on('connection', function (socket) {
     Feedback.count({"type": "thumbsdown"}, function(err, c) {
       socket.emit('thumbsdown_sent', { thumbsdown: c });
