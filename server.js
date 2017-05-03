@@ -50,10 +50,6 @@ io.on('connection', function (socket) {
       socket.emit('thumbsup_sent', { thumbsup: c });
     });
 
-    Feedback.count({"type": "speaklouder"}, function(err, c) {
-      socket.emit('speaklouder_sent', { speaklouder: c });
-    });
-
     Feedback.count({"type": "speakslower"}, function(err, c) {
       socket.emit('speakslower_sent', { speakslower: c });
     });

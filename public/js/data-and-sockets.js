@@ -5,7 +5,7 @@
 */
 
 // establish connection
-var socket = io.connect('http://localhost:8080');
+var socket = io.connect('http://35.185.194.153');
 
 // retrieve socket calls for thumbs down and update chart js data.
   socket.on('thumbsdown_sent', function (data) {
@@ -37,7 +37,9 @@ var socket = io.connect('http://localhost:8080');
 
   // retrieve socket calls for speaklouder - bar doesnt make sense so we'll try flash messages
   socket.on('speaklouder_sent', function (data) {
-	// document.getElementById("speak_louder").innerHTML = data.speaklouder;
+    document.getElementById("speak_up").innerHTML = '<h1 id="su_text" class="animated bounce" style="color: red;">Speak Up!</h1>';
+    var el = document.getElementById("su_text");
+    el.className += " fadeOut"; 
     socket.emit('my other event', { status: 'Speak Louder counter initiated.' });
   });
 
