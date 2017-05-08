@@ -4,8 +4,8 @@
    most convenient
 */
 
-// establish connection
-var socket = io.connect('http://35.185.194.153');
+// establish connection; use localhost for ad-hoc networks
+var socket = io.connect('localhost:8080');
 
 // retrieve socket calls for thumbs down and update chart js data.
   socket.on('thumbsdown_sent', function (data) {

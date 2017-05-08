@@ -14,6 +14,7 @@ app.set('server', server);
 var mongoose = require('mongoose');
 var port = process.env.PORT || 8080;
 var database = require('./config/database');
+// dependency for mean stack
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');

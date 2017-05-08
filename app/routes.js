@@ -32,7 +32,6 @@ module.exports = function (app, io) {
         });
 
         Feedbacks.create({
-            text: req.body.text,
             type: "thumbsup",
             done: false
         }, function (err, feedback) {
@@ -52,7 +51,6 @@ module.exports = function (app, io) {
         });
 
         Feedbacks.create({
-            text: req.body.text,
             type: "thumbsdown",
             done: false
         }, function (err, feedback) {
@@ -72,7 +70,6 @@ module.exports = function (app, io) {
         });
 
         Feedbacks.create({
-            text: req.body.text,
             type: "speaklouder",
             done: false
         }, function (err, feedback) {
@@ -92,7 +89,6 @@ module.exports = function (app, io) {
         });
 
         Feedbacks.create({
-            text: req.body.text,
             type: "speakslower",
             done: false
         }, function (err, feedback) {
@@ -112,7 +108,6 @@ module.exports = function (app, io) {
         });
 
         Feedbacks.create({
-            text: req.body.text,
             type: "speakfaster",
             done: false
         }, function (err, feedback) {
